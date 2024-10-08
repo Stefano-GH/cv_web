@@ -1,0 +1,17 @@
+.card-container{
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2vh;
+}
+
+.data-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.certication-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
