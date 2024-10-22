@@ -3,13 +3,12 @@
   ----------------------------------------
 */
 import "./Footer.css";
-import PDFGenerator from "../pdf_generator/PDFGenerator";
-import { BrowserRouter, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 //const COLOR_1 = `#${process.env.REACT_APP_COLOR_1}`;
-const COLOR_1 = "#72BF78";
-const COLOR_3 = "#D3EE98";
+//const COLOR_1 = "#72BF78";
+//const COLOR_3 = "#D3EE98";
 
 
 /*----------------------------------------

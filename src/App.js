@@ -3,8 +3,12 @@
   ----------------------------------------
 */
 import { BrowserRouter,Routes,Route } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/home/Home";
-import PDFGenerator from "./components/pdf_generator/PDFGenerator";
+import PDFGenerator from "./pages/pdf_generator/PDFGenerator";
+
+import data from "./data/stefano/data";
+import photo from "./data/icona.webp";
 
 
 /*----------------------------------------
@@ -13,10 +17,11 @@ import PDFGenerator from "./components/pdf_generator/PDFGenerator";
 */
 function App() {
   return <BrowserRouter>
+  <Navbar data={data} />
 
     <Routes>
-      <Route path="/" element={<Home />}/>
-      <Route path="download_pdf" element={<PDFGenerator />}/>
+      <Route path="/cv_web" element={<Home data={data} photo={photo} />}/>
+      <Route path="/cv_web/download_pdf" element={<PDFGenerator data={data} photo={photo} />}/>
     </Routes>
 
   </BrowserRouter>

@@ -1,5 +1,5 @@
 .page-container{
-    height: 110vh;
+    height: 180vh;
     display: flex;
 }
 
@@ -83,13 +83,12 @@
     width: 100%;
     height: 5px;
     background-color: rgb(58, 159, 221);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.work-container{
+.container{
     width: 100%;
-    min-height: 200px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 h3{

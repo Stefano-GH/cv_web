@@ -6,8 +6,6 @@ import "./PDFGenerator.css";
 import React, { useRef } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import logo from "../../data/icona.webp";
-import { DatiAnagrafici, informaticsData, EsperienzeProfessionali, educationData, lingueData } from "../../data/Data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +14,7 @@ import { useNavigate } from "react-router-dom";
   STRUCTURE
   ----------------------------------------
 */
-const PDFGenerator = () => {
+const PDFGenerator = ( {data, photo} ) => {
     const pdfRef = useRef();  // Riferimento alla sezione della pagina che vogliamo convertire in PDF
     const navigate = useNavigate();
 
@@ -43,7 +41,7 @@ const PDFGenerator = () => {
 
     // Gestione del bottone HOME
     const goHome = () => {
-        navigate("/");
+        navigate("/cv_web");
     }
 
 
@@ -54,7 +52,7 @@ const PDFGenerator = () => {
                 
                 <div className="lower-wrapper">
                     <div className="contatti">
-                        {DatiAnagrafici.contatti.map((item, index) => (
+                        {data.anagrafica.contatti.map((item, index) => (
                             <div key={index} className="contatti-single-item">
                                 <FontAwesomeIcon icon={item.font} style={{width: "20px"}}/>
                                 <p>{item.valore}</p>
@@ -65,29 +63,29 @@ const PDFGenerator = () => {
                     <div className="divisore"></div>
 
                     <div className="competenze-container">
-                        <h3 style={{ color: "white" }}>COMPETENZE TECNICHE</h3>
+                        <h3 style={{ color: "white" }}>COMPETENZE</h3>
                         <ul>
-                            {informaticsData.map((item, index) => (
+                            {data.competenze.map((item, index) => (
                                 <li key={index} style={{marginBottom:"7px"}}>• {item}</li>
                             ))}
                         </ul>
                     </div>
                 </div>
 
-                <div className="photo-wrapper" style={{backgroundImage:`url(${logo})`}}></div>
+                <div className="photo-wrapper" style={{backgroundImage:`url(${photo})`}}></div>
             </div>
 
             <div className="second-column">
                 <div className="name-wrapper">
-                    <h2>{DatiAnagrafici.nome} {DatiAnagrafici.cognome}</h2>
+                    <h2>{data.anagrafica.nome} {data.anagrafica.cognome}</h2>
                 </div>
 
                 <div className="divisore-principale"></div>
 
                 <div className="container">
-                    <h3>ESPERIENZE LAVORATIVE E PROFESSIONALI</h3>
-                    {EsperienzeProfessionali.map((item, index) => (
-                        <div key={index} style={{marginBottom: "15px"}}>
+                    <h3>ESPERIENZE PROFESSIONALI</h3>
+                    {data.lavoro.map((item, index) => (
+                        <div key={index} style={{marginBottom: "25px"}}>
                             {item.stagione ? (
                                 <p style={{fontSize:`15px`}}>{capitalizeFirstLetter(item.stagione)} da {item.dataInizio} a {item.dataFine}</p>
                             ) : (
@@ -107,7 +105,7 @@ const PDFGenerator = () => {
 
                 <div className="container">
                     <h3>ISTRUZIONE E FORMAZIONE</h3>
-                    {educationData.map((item, index) => (
+                    {data.istruzione.map((item, index) => (
                         <div key={index} style={{marginBottom: "15px"}}>
                             <p style={{fontSize:"15px"}}>{capitalizeFirstLetter(item.dataInizio)} - {item.dataFine ? capitalizeFirstLetter(item.dataFine) : "Attuale"}</p>
                             <h5 style={{fontSize:"16px"}}>{item.corso}</h5>
@@ -129,7 +127,7 @@ const PDFGenerator = () => {
                     <h3>COMPETENZE LINGUISTICHE</h3>
                     <p style={{marginBottom:"10px"}}><b>Italiano:</b> LINGUA MADRE</p>
                     <div className="lingue-list">
-                        {lingueData.map((item, index) => (
+                        {data.lingue.map((item, index) => (
                             <div key={index} style={{margin: "0 15px 10px 0"}}>
                                 <div className="lingua-wrapper">
                                     <p><b>{item.lingua}:</b></p>
@@ -146,18 +144,19 @@ const PDFGenerator = () => {
 
                                     {/* Barre */}
                                     {[...Array(item.livello)].map((el,index) => (
-                                        <div key={index} style={{ backgroundColor:"rgb(58, 159, 221)", height: "15px", width: "20%", marginRight: "5px" }}></div>
+                                        <div key={index} style={{ backgroundColor:"rgb(58, 159, 221)", height: "15px", width: "20%", marginRight: "5px", marginBottom: "10px" }}></div>
                                     ))}
                                     {[...Array(6 - item.livello)].map((el,index) => (
-                                        <div key={index} style={{ backgroundColor:"lightGrey", height: "15px", width: "20%", marginRight: "5px" }}></div>
+                                        <div key={index} style={{ backgroundColor:"lightGrey", height: "15px", width: "20%", marginRight: "5px", marginBottom: "10px" }}></div>
                                     ))}
                                 </div>
-                                <p>{item.dettaglioLivello}</p>
+                                <p style={{marginBottom: "25px"}}>{item.dettaglioLivello}</p>
                             </div>
                         ))}
                     </div>
                     
                 </div>
+                
             </div>
         </div>
 
