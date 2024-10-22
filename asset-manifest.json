@@ -1,18 +1,21 @@
 {
   "files": {
-    "main.css": "/cv_web/static/css/main.319f1284.css",
-    "main.js": "/cv_web/static/js/main.b4a4ab70.js",
+    "main.css": "/cv_web/static/css/main.df03efd0.css",
+    "main.js": "/cv_web/static/js/main.ecfdc906.js",
     "static/js/213.57a5c7bd.chunk.js": "/cv_web/static/js/213.57a5c7bd.chunk.js",
     "static/js/732.cbf85099.chunk.js": "/cv_web/static/js/732.cbf85099.chunk.js",
+    "static/media/AI_image.png": "/cv_web/static/media/AI_image.f16cf44fa4f2ecbea2d4.png",
+    "static/media/envirnment_image.jpeg": "/cv_web/static/media/envirnment_image.dc0fff5596d007b0935b.jpeg",
+    "static/media/astrophysics_image.jpg": "/cv_web/static/media/astrophysics_image.d386da7133c5bf8ec406.jpg",
     "static/media/icona.webp": "/cv_web/static/media/icona.efadb13dba95b5bc918b.webp",
     "index.html": "/cv_web/index.html",
-    "main.319f1284.css.map": "/cv_web/static/css/main.319f1284.css.map",
-    "main.b4a4ab70.js.map": "/cv_web/static/js/main.b4a4ab70.js.map",
+    "main.df03efd0.css.map": "/cv_web/static/css/main.df03efd0.css.map",
+    "main.ecfdc906.js.map": "/cv_web/static/js/main.ecfdc906.js.map",
     "213.57a5c7bd.chunk.js.map": "/cv_web/static/js/213.57a5c7bd.chunk.js.map",
     "732.cbf85099.chunk.js.map": "/cv_web/static/js/732.cbf85099.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.319f1284.css",
-    "static/js/main.b4a4ab70.js"
+    "static/css/main.df03efd0.css",
+    "static/js/main.ecfdc906.js"
   ]
 }
