@@ -5,12 +5,14 @@
 import "./Navbar.css";
 import { useState } from "react";
 
-const COLOR_1 = "#FF6500";
+const COLOR_1 = `#${process.env.REACT_APP_COLOR_1}`;
+const COLOR_3 = `#${process.env.REACT_APP_COLOR_3}`;
+const COLOR_5 = `#${process.env.REACT_APP_COLOR_5}`;
 
 // Link della navbar
 const links = [
   { titolo: "Chi Sono", href: '#about' },
-  { titolo: "Competenze", href: '#education' },
+  { titolo: "Istruzione", href: '#education' },
   { titolo: "Esperienza", href: '#experience' },
   { titolo: "Contatti", href: '#contact' },
 ]
@@ -43,7 +45,7 @@ const Navbar = ( {data} ) => {
 
   // stile dinamico dei link
   const getLinkStyle = (isHovered) => ({
-    color: isHovered ? `${COLOR_1}` : "white",
+    color: isHovered ? `${COLOR_1}` : `${COLOR_5}`,
     cursor: isHovered ? "pointer" : "default",
     transition: "color 0.3s ease"
   })
@@ -54,13 +56,13 @@ const Navbar = ( {data} ) => {
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const [burgerHovered, setBurgerHovered] = useState(false);
 
-  return <header className="header">
+  return <header className="header" style={{backgroundColor:`${COLOR_3}`, color:`${COLOR_5}`}}>
     <h1>{data.anagrafica.nome} {data.anagrafica.cognome}</h1>
     <p>{data.anagrafica.titoli}</p>
 
-    <div className={showBurgerMenu ? "burgerMenu-items show" : "burgerMenu-items"}>
+    <div className={showBurgerMenu ? "burgerMenu-items show" : "burgerMenu-items"} style={{backgroundColor:`${COLOR_3}`}}>
       {links.map((item, index) => (
-        <div key={index}>
+        <div key={index} style={{borderTop:`1px solid ${COLOR_5}`}}>
           <a href={item.href} style={getLinkStyle(hoveredLinks[index])}
           onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={() => handleMouseLeave(index)}>
             {item.titolo}

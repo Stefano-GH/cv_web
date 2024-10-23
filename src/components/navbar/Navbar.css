@@ -3,8 +3,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
-    background-color: #0B192C;
-    color: white;
 }
   
 .header h1 {
@@ -19,7 +17,6 @@
 }
 
 .active-link {
-    color: #007bff;
     font-weight: bold;
     text-decoration: underline;
 }
@@ -51,7 +48,6 @@
         position: absolute;
         top: 133px;
         left: 0;
-        background-color: #0B192C;
         margin: 0;
         gap: 0;
         width: 100%;
@@ -61,7 +57,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-top: 1px solid white;
         font-size: 25px;
         height: 40px;
     }

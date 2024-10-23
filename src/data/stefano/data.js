@@ -1,5 +1,10 @@
 import { faPhone, faEnvelope, faLocationDot  } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
+import tas_image from "./tas_image.jpg";
+import tutor_image from "./tutor_image.jpg";
+import palme_image from "./palme_image.jpg";
+
 import ai_image from "./AI_image.png";
 import astro_image from "./astrophysics_image.jpg";
 import env_image from "./envirnment_image.jpeg";
@@ -9,7 +14,11 @@ const data = {
         nome: "Stefano",
         cognome: "Tumino",
         titoli: "Analista & Tester | Studente di AI | Laureato in Astrofisica",
-        chi_sono: "Sono un analista e tester, laureato in astrofisica e scienze ambientali. Studio le intelligenze artificali per la scienza e la tecnologia e lala prova ho una passione per la creazione di esperienze web intuitive.",
+        chi_sono: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non purus sed quam vehicula sodales." +
+            "Pellentesque porta congue arcu pellentesque elementum. Duis elementum id ipsum id maximus. In hac habitasse platea dictumst." +
+            "In ac ullamcorper quam. Phasellus posuere aliquam elit non scelerisque. Nullam varius dictum odio," +
+            "eu efficitur turpis bibendum condimentum. Aliquam luctus, lectus in tempus convallis, nunc sapien tincidunt diam, " +
+            "in finibus metus ipsum ac nulla. Vestibulum et interdum nulla. Sed lacinia laoreet dolor, non maximus lacus facilisis vitae. Aliquam erat volutpat.",
         contatti: [
             {tipo: "telefono", valore: "338 548 3925", font: faPhone},
             {tipo: "email", valore: "s.tumino99@gmail.com", font: faEnvelope},
@@ -21,31 +30,34 @@ const data = {
 
     lavoro: [
         {
-            dataInizio: "apr 2024",
-            dataFine: "",
+            data_inizio: "Apr 2024",
+            data_fine: "",
             stagione: "",
             manzione: "Analista & Tester",
             azienda: "Tas SpA",
-            luogo: "via Lattuada 25, Milano (MI)",
-            settore: "IT"
+            sede: "via Lattuada 25, Milano (MI)",
+            settore: "IT",
+            immagine: tas_image
         },
         {
-            dataInizio: "ott 2023",
-            dataFine: "feb 2024",
+            data_inizio: "Ott 2023",
+            data_fine: "Feb 2024",
             stagione: "",
             manzione: "Tutor di Matematica",
             azienda: "Da Vinci School",
-            luogo: "viale della Repubblica 35, Bologna (BO)",
-            settore: "Insegnamento"
+            sede: "viale della Repubblica 35, Bologna (BO)",
+            settore: "Insegnamento",
+            immagine: tutor_image
         },
         {
-            dataInizio: "giu 2016",
-            dataFine: "set 2023",
+            data_inizio: "Giu 2016",
+            data_fine: "Set 2023",
             stagione: "Estati",
             manzione: "Chef de Rang",
             azienda: "Le Palme srl",
-            luogo: "via Barone, Marina di Ragusa (RG)",
-            settore: "Ristorazione"
+            sede: "via Barone, Marina di Ragusa (RG)",
+            settore: "Ristorazione",
+            immagine: palme_image
         }
     ],
 
@@ -107,6 +119,13 @@ const data = {
 
 
     competenze: [
+        { nome: "JavaScript", livello: "Avanzato" },
+        { nome: "React", livello: "Intermedio" },
+        { nome: "CSS", livello: "Avanzato" },
+        { nome: "Node.js", livello: "Intermedio" }
+    ],
+    
+    competenze_post: [
         "Analisi dei dati: Python, RStudio, Fortran90",
         "Database relazionali SQL, MyQSL, SQLite, PostgreSQL",
         "Tecnologie web: HTML, CSS, Javascript, React, Typescript, Bootstrap",
