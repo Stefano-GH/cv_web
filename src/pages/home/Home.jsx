@@ -2,9 +2,10 @@
   LIBRARIES AND CONSTANTS
   ----------------------------------------
 */
-import { useState } from "react";
 import "./Home.css";
+import { useState } from "react";
 import emailjs from "emailjs-com";
+import Modal from 'react-modal';
 
 const COLOR_2 = `#${process.env.REACT_APP_COLOR_2}`;
 const COLOR_3 = `#${process.env.REACT_APP_COLOR_3}`;
@@ -24,6 +25,28 @@ const gridStyle = {
 */
 const Home = ( {data} ) => {
 
+  //////////////////////////////
+  // Competenze
+  //////////////////////////////
+  // Stato per la gestione della modale
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedCompetenze, setSelectedCompetenze] = useState(null);
+
+  // Funzione per aprire la modale
+  const openModal = (competenza) => {
+    setSelectedCompetenze(competenza);
+    setModalIsOpen(true);
+  };
+
+  // Funzione per chiudere la modale
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedCompetenze(null);
+  };
+
+  //////////////////////////////
+  // Form
+  //////////////////////////////
   // gestione form
   const [formData, setFormData] = useState({
     name: "",
@@ -72,7 +95,7 @@ const Home = ( {data} ) => {
       <div className="hero-content">
         <h2 style={{color: `${COLOR_3}`}}>Benvenuti nel mio sito!</h2>
         <p></p>
-        <a href="#contact" className="btn" style={{backgroundColor: `${COLOR_2}`, color: `white`}}>Contattami</a>
+        <a href="#contact" className="btn" style={{backgroundColor:`${COLOR_3}`, color:`${COLOR_5}`}}>Contattami</a>
       </div>
     </section>
 
@@ -150,9 +173,82 @@ const Home = ( {data} ) => {
       </div>
     </section>
 
+    {/* Skills Section */}
+    <section id="skills" className="competenze" style={{ padding: "1em" }}>
+      <h2 style={{marginBottom:"1em"}}>Competenze</h2>
+      <div className="competenze-grid">
+        {data.competenze.map((item, index) => (
+          <div key={index} className="competenze-item" onClick={() => openModal(item)} style={{backgroundColor:`${COLOR_6}`}}>
+            <h4 style={{cursor:"pointer"}}>{item.nome}</h4>
+          </div>
+        ))}
+      </div>
+
+      {/* Modal di dettaglio */}
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Dettaglio Competenze"
+        style={{
+          content: {
+            backgroundColor: `${COLOR_6}`,
+            borderRadius: '10px',
+            margin: 'auto',
+            maxWidth: '600px',
+            padding: '2em'
+          },
+        }}
+      >
+
+        {selectedCompetenze && selectedCompetenze.tipo_competenza=="tecnica" && (
+          <div>
+            <h4 style={{marginBottom:"1em", fontSize:"1.5em"}}>{selectedCompetenze.nome}</h4>
+            <p style={{marginBottom:"0.5em"}}><b>Linguaggi:</b> {selectedCompetenze.competenze.join(", ")}</p>
+            {selectedCompetenze.dettagli.length>0 ? (
+              <p style={{marginBottom:"0.5em"}}><b>Strumenti:</b> {selectedCompetenze.dettagli.join(", ")}</p>
+            ) : (
+              null
+            )}
+            <button onClick={closeModal}
+              style={{
+                backgroundColor: `${COLOR_2}`,
+                border: 'none',
+                borderRadius: '5px',
+                color: `${COLOR_5}`,
+                cursor: 'pointer',
+                padding: '0.5em 1em'
+              }}
+            >
+              Chiudi
+            </button>
+          </div>
+        )}
+
+        {selectedCompetenze && selectedCompetenze.tipo_competenza=="linguistica" && (
+          <div>
+            <h4 style={{marginBottom:"1em", fontSize:"1.5em"}}>{selectedCompetenze.nome}</h4>
+            <p style={{marginBottom:"0.5em"}}><b>Lingua Madre:</b> {selectedCompetenze.competenze[0]}</p>
+            <p style={{marginBottom:"0.5em"}}><b>Altre lingue:</b></p>
+            {selectedCompetenze.competenze.slice(1).map((lingua, indice) => (
+              <p style={{marginBottom:"0.5em"}}>{lingua} ({selectedCompetenze.dettagli[indice]})</p>
+            ))}
+            <button onClick={closeModal}
+              style={{
+                backgroundColor: `${COLOR_2}`,
+                border: 'none',
+                borderRadius: '5px',
+                color: `${COLOR_5}`,
+                cursor: 'pointer',
+                padding: '0.5em 1em'
+              }}
+            >
+              Chiudi
+            </button>
+          </div>
+        )}
+      </Modal>
+    </section>
+
     {/* Contact Section */}
     <section id="contact" className="contact" style={{padding: "1em", backgroundColor:`${COLOR_6}`}}>
-      <h2>Contatti</h2>
+      <h2 style={{marginBottom:"0.5em"}}>Contatti</h2>
       <form onSubmit={handleSubmit}>
         <label>Nome</label>
         <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Il tuo nome" required/>
@@ -164,10 +260,6 @@ const Home = ( {data} ) => {
       </form>
     </section>
 
-    {/* Footer */}
-    <footer className="footer" style={{color:`${COLOR_6}`}}>
-      <p>© 2024 {data.anagrafica.nome} {data.anagrafica.cognome}. Tutti i diritti riservati.</p>
-    </footer>
   </div>
 }
 

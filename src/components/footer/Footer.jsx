@@ -4,31 +4,26 @@
 */
 import "./Footer.css";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
 
-//const COLOR_1 = `#${process.env.REACT_APP_COLOR_1}`;
-//const COLOR_1 = "#72BF78";
-//const COLOR_3 = "#D3EE98";
+const COLOR_4 = `#${process.env.REACT_APP_COLOR_4}`;
+const COLOR_6 = `#${process.env.REACT_APP_COLOR_6}`;
 
 
 /*----------------------------------------
   STRUCTURE
   ----------------------------------------
 */
-const Footer = () => {
-    const [isHover, setIsHover] = useState(false);
+const Footer = ( {data} ) => {
+  const currentYear = new Date().getFullYear();
 
-    // Stile del link
-    const navStyle = {
-        color: "white",
-        fontSize: "20px",
-        textDecoration: !isHover ? "none" : "underline"
-    }
+    return <footer className="footer" style={{backgroundColor:`${COLOR_4}`, color:`${COLOR_6}`}}>
+      <p>© {currentYear} {data.anagrafica.nome} {data.anagrafica.cognome}. Tutti i diritti riservati.</p>
 
-    return <footer style={{ backgroundColor: `black`, textAlign: "center", minHeight:"10vh" }}>
-        <NavLink to={"download_pdf"} style={navStyle} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-            Scarica PDF
-        </NavLink>
+      {/*
+      <NavLink to={"download_pdf"}>
+        Scarica PDF
+      </NavLink>
+      */}
     </footer>
 };
 

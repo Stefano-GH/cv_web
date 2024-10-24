@@ -1,13 +1,13 @@
 import { faPhone, faEnvelope, faLocationDot  } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
-import tas_image from "./tas_image.jpg";
-import tutor_image from "./tutor_image.jpg";
-import palme_image from "./palme_image.jpg";
+import tas_image from "./images/tas_image.jpg";
+import tutor_image from "./images/tutor_image.jpg";
+import palme_image from "./images/palme_image.jpg";
 
-import ai_image from "./AI_image.png";
-import astro_image from "./astrophysics_image.jpg";
-import env_image from "./envirnment_image.jpeg";
+import ai_image from "./images/AI_image.png";
+import astro_image from "./images/astrophysics_image.jpg";
+import env_image from "./images/envirnment_image.jpeg";
 
 const data = {
     anagrafica: {
@@ -116,23 +116,44 @@ const data = {
             ente: "Dr Angela Yu"
         }
     ],
-
-
-    competenze: [
-        { nome: "JavaScript", livello: "Avanzato" },
-        { nome: "React", livello: "Intermedio" },
-        { nome: "CSS", livello: "Avanzato" },
-        { nome: "Node.js", livello: "Intermedio" }
-    ],
     
-    competenze_post: [
-        "Analisi dei dati: Python, RStudio, Fortran90",
-        "Database relazionali SQL, MyQSL, SQLite, PostgreSQL",
-        "Tecnologie web: HTML, CSS, Javascript, React, Typescript, Bootstrap",
-        "Altri linguaggi: java",
-        "Conotrollo delle versioni: Git, GitHub, GitLab, GUnicorn",
-        "Machine-learning: scikit-learn, TensorFlow",
-        "Ambienti: PyCharm, Jupyter Lab, Google Colab"
+    competenze: [
+        {
+            nome:"Analisi dei dati",
+            tipo_competenza:"tecnica",
+            competenze:["Python", "RStudio", "Fortran90"],
+            dettagli:["Google Colab", "Jupiter Lab", "PyCharm", "Tensor Flow", "Scikit-learn"]
+        },
+        {
+            nome:"Tecnologie Web",
+            tipo_competenza:"tecnica",
+            competenze:["HTML, CSS", "JavaScript", "TypeScript"],
+            dettagli:["React", "Angular"]
+        },
+        {
+            nome:"Database Relazionali",
+            tipo_competenza:"tecnica",
+            competenze:["SQLite", "MySQL", "PostgreSQL"],
+            dettagli:["DBeaver", "MySQL Workbench"]
+        },
+        {
+            nome:"Controllo delle versioni",
+            tipo_competenza:"tecnica",
+            competenze:["Git", "GitHub", "GitLab", "Gunicorn"],
+            dettagli:[]
+        },
+        {
+            nome:"Altre competenze informatiche",
+            tipo_competenza:"tecnica",
+            competenze:["Java", "Fogli di calcolo"],
+            dettagli:["Eclipse", "IntelliJ", "Excel", "Fogli Google"]
+        },
+        {
+            nome:"Competenze linguistiche",
+            tipo_competenza:"linguistica",
+            competenze:["Italiano", "Inglese", "Spagnolo"],
+            dettagli:["B2", "B1"]
+        }
     ],
 
 

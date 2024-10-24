@@ -14,6 +14,7 @@ const links = [
   { titolo: "Chi Sono", href: '#about' },
   { titolo: "Istruzione", href: '#education' },
   { titolo: "Esperienza", href: '#experience' },
+  { titolo: "Competenze", href: '#skills' },
   { titolo: "Contatti", href: '#contact' },
 ]
 
@@ -62,7 +63,7 @@ const Navbar = ( {data} ) => {
 
     <div className={showBurgerMenu ? "burgerMenu-items show" : "burgerMenu-items"} style={{backgroundColor:`${COLOR_3}`}}>
       {links.map((item, index) => (
-        <div key={index} style={{borderTop:`1px solid ${COLOR_5}`}}>
+        <div key={index}>
           <a href={item.href} style={getLinkStyle(hoveredLinks[index])}
           onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={() => handleMouseLeave(index)}>
             {item.titolo}
