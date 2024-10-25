@@ -5,7 +5,7 @@
 import "./Home.css";
 import { useState } from "react";
 import emailjs from "emailjs-com";
-import Modal from 'react-modal';
+//import Modal from 'react-modal';
 
 const COLOR_2 = `#${process.env.REACT_APP_COLOR_2}`;
 const COLOR_3 = `#${process.env.REACT_APP_COLOR_3}`;
@@ -28,6 +28,7 @@ const Home = ( {data} ) => {
   //////////////////////////////
   // Competenze
   //////////////////////////////
+  /*
   // Stato per la gestione della modale
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedCompetenze, setSelectedCompetenze] = useState(null);
@@ -42,7 +43,17 @@ const Home = ( {data} ) => {
   const closeModal = () => {
     setModalIsOpen(false);
     setSelectedCompetenze(null);
-  };
+  };*/
+
+  // gestione espansione del div per i dettagli
+  const [expandedIndex, setExpandedIndex] = useState(Array(data.competenze.length).fill(false));
+  const handleExpand = (index) => {
+    setExpandedIndex((prevIndex) => {
+      const newExpanded = [...expandedIndex];
+      newExpanded[index] = !newExpanded[index];
+      return newExpanded;
+    })
+  }
 
   //////////////////////////////
   // Form
@@ -138,7 +149,7 @@ const Home = ( {data} ) => {
     </section>
 
     {/* Experience Section */}
-    <section id="experience" className="experience" style={{padding: "1em"}}>
+    <section id="experience" className="experience" style={{padding: "1em 1em 2.5em 1em"}}>
       <h2 style={{marginBottom: "10px"}}>Esperienza</h2>
       <div className="job-grid">
 
@@ -174,17 +185,53 @@ const Home = ( {data} ) => {
     </section>
 
     {/* Skills Section */}
-    <section id="skills" className="competenze" style={{ padding: "1em" }}>
-      <h2 style={{marginBottom:"1em"}}>Competenze</h2>
+    <section id="skills" className="competenze" style={{ padding: "1em 1em 2.5em 1em", backgroundColor:`${COLOR_3}`, color:`${COLOR_5}` }}>
+      <h2 style={{marginBottom:'1em'}}>Competenze</h2>
       <div className="competenze-grid">
-        {data.competenze.map((item, index) => (
-          <div key={index} className="competenze-item" onClick={() => openModal(item)} style={{backgroundColor:`${COLOR_6}`}}>
-            <h4 style={{cursor:"pointer"}}>{item.nome}</h4>
+        {data.competenze.map((item,index) => (
+          <div key={index} className="competenze-item" onClick={() => handleExpand(index)} style={{backgroundColor:`${COLOR_5}`, color:`${COLOR_3}`}}>
+            <h4 style={{cursor:'pointer', fontSize:'1.2em'}}>{item.nome}</h4>
+
+            {expandedIndex[index] && item.tipo_competenza === "tecnica" && (
+              <div className="competenze-dettagli">
+                <p style={{marginBottom:'0.5em'}}><b>Linguaggi:</b> {item.competenze.join(', ')}</p>
+                {item.dettagli?.length>0 && <p><b>Strumenti:</b> {item.dettagli.join(', ')}</p>}
+              </div>
+            )}
+
+            {expandedIndex[index] && item.tipo_competenza === "linguistica" && (
+              <div className="competenze-dettagli">
+                <p style={{marginBottom:'0.5em'}}><b>Lingua Madre:</b> {item.competenze[0]}</p>
+                {item.competenze?.length > 1 && (
+                  <div style={{ display:'flex', gap:'0.5em' }}>
+                    <p style={{ marginBottom:'0.5em' }}><b>Altre Lingue:</b></p>
+                    {item.competenze.slice(1).map((lingua, indice) => (
+                      <p key={indice} style={{ marginBottom:'0.5em' }}>
+                        {lingua} ({item.dettagli[indice]})
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+            
           </div>
         ))}
       </div>
 
-      {/* Modal di dettaglio */}
+    {/*}
+    <section id="skills" className="competenze" style={{ padding: "1em 1em 2.5em 1em", backgroundColor:`${COLOR_2}`, color:`${COLOR_5}` a}}>
+      <h2 style={{marginBottom:"1em"}}>Competenze</h2>
+      <div className="competenze-grid">
+        {data.competenze.map((item, index) => (
+          <div key={index} className="competenze-item" onClick={() => openModal(item)} style={{backgroundColor:`${COLOR_5}`, color:`${COLOR_3}`}}>
+            <h4 style={{cursor:"pointer"}}>{item.nome}</h4>
+          </div>
+        ))}
+      </div>*/}
+
+      {/* Modal di dettaglio*/}
+      {/*
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Dettaglio Competenze"
         style={{
           content: {
@@ -196,31 +243,7 @@ const Home = ( {data} ) => {
           },
         }}
       >
-
-        {selectedCompetenze && selectedCompetenze.tipo_competenza=="tecnica" && (
-          <div>
-            <h4 style={{marginBottom:"1em", fontSize:"1.5em"}}>{selectedCompetenze.nome}</h4>
-            <p style={{marginBottom:"0.5em"}}><b>Linguaggi:</b> {selectedCompetenze.competenze.join(", ")}</p>
-            {selectedCompetenze.dettagli.length>0 ? (
-              <p style={{marginBottom:"0.5em"}}><b>Strumenti:</b> {selectedCompetenze.dettagli.join(", ")}</p>
-            ) : (
-              null
-            )}
-            <button onClick={closeModal}
-              style={{
-                backgroundColor: `${COLOR_2}`,
-                border: 'none',
-                borderRadius: '5px',
-                color: `${COLOR_5}`,
-                cursor: 'pointer',
-                padding: '0.5em 1em'
-              }}
-            >
-              Chiudi
-            </button>
-          </div>
-        )}
-
+      
         {selectedCompetenze && selectedCompetenze.tipo_competenza=="linguistica" && (
           <div>
             <h4 style={{marginBottom:"1em", fontSize:"1.5em"}}>{selectedCompetenze.nome}</h4>
@@ -243,8 +266,9 @@ const Home = ( {data} ) => {
             </button>
           </div>
         )}
-      </Modal>
+      </Modal>*/}
     </section>
+    
 
     {/* Contact Section */}
     <section id="contact" className="contact" style={{padding: "1em", backgroundColor:`${COLOR_6}`}}>

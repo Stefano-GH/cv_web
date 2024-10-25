@@ -113,6 +113,12 @@
     margin-bottom: 1em;
 }
 
+.competenze-dettagli{
+    margin-top: 1.5em;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
 
 /*------------------------------
   CONTACT SECTION

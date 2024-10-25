@@ -35,7 +35,7 @@ const data = {
             stagione: "",
             manzione: "Analista & Tester",
             azienda: "Tas SpA",
-            sede: "via Lattuada 25, Milano (MI)",
+            sede: "Milano (MI)",
             settore: "IT",
             immagine: tas_image
         },
@@ -44,8 +44,8 @@ const data = {
             data_fine: "Feb 2024",
             stagione: "",
             manzione: "Tutor di Matematica",
-            azienda: "Da Vinci School",
-            sede: "viale della Repubblica 35, Bologna (BO)",
+            azienda: "Istituto Da Vinci",
+            sede: "Bologna (BO)",
             settore: "Insegnamento",
             immagine: tutor_image
         },
@@ -55,7 +55,7 @@ const data = {
             stagione: "Estati",
             manzione: "Chef de Rang",
             azienda: "Le Palme srl",
-            sede: "via Barone, Marina di Ragusa (RG)",
+            sede: "Ragusa (RG)",
             settore: "Ristorazione",
             immagine: palme_image
         }
@@ -151,8 +151,8 @@ const data = {
         {
             nome:"Competenze linguistiche",
             tipo_competenza:"linguistica",
-            competenze:["Italiano", "Inglese", "Spagnolo"],
-            dettagli:["B2", "B1"]
+            competenze:["Italiano", "Inglese"],
+            dettagli:["B2"]
         }
     ],
 
