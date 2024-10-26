@@ -3,11 +3,20 @@
   ----------------------------------------
 */
 import "./PDFGenerator.css";
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+
+const COLOR_2 = `#${process.env.REACT_APP_COLOR_2}`;
+const COLOR_3 = `#${process.env.REACT_APP_COLOR_3}`;
+const COLOR_5 = `#${process.env.REACT_APP_COLOR_5}`;
+const COLOR_7 = 'grey';
+
+const SMALL_FONT = '1.5em';
+const TEXT_FONT = '2em';
+const TITLE_FONT = '2.5em';
 
 
 /*----------------------------------------
@@ -15,28 +24,41 @@ import { useNavigate } from "react-router-dom";
   ----------------------------------------
 */
 const PDFGenerator = ( {data, photo} ) => {
-    const pdfRef = useRef();  // Riferimento alla sezione della pagina che vogliamo convertire in PDF
+    const pdfRef = useRef();
     const navigate = useNavigate();
 
     // Generazione del PDF
     const generatePDF = () => {
-        const input = pdfRef.current;  // Sezione da convertire in PDF
-        html2canvas(input, { scale: 2 }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');  // Converti il contenuto in immagine
-            const pdf = new jsPDF('p', 'mm', 'a4');  // Crea il documento PDF
-            const imgWidth = 210;  // Larghezza del PDF A4 in mm
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;  // Calcola l'altezza mantenendo le proporzioni
+        const input = pdfRef.current;
+        html2canvas(input, {
+                scale: 3,
+                useCORS: true
+            }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = 210;
+            const pageHeight = 297;
+            const imgWidth = pageWidth;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);  // Aggiungi l'immagine al PDF
-            pdf.save('pagina.pdf');  // Salva il PDF
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            while (heightLeft > 0) {
+                pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                position -= pageHeight;
+
+                if (heightLeft > 0) {
+                    pdf.addPage();
+                    position = 0;
+                }
+            }
+
+            pdf.save(`CV_${data.anagrafica.nome}${data.anagrafica.cognome}.pdf`);
         }).catch(error => {
             console.log("Errore durante la generazione del PDF: ", error);
         });
-    };
-
-    // Generazione della prima lettera maiuscola nel testo
-    const capitalizeFirstLetter = (text) => {
-        return text.charAt(0).toUpperCase() + text.slice(1);
     };
 
     // Gestione del bottone HOME
@@ -46,92 +68,91 @@ const PDFGenerator = ( {data, photo} ) => {
 
 
     return <div>
-        <div ref={pdfRef} className="page-container">
+        <div ref={pdfRef} className="page-container" style={{ display:"flex", height:"265vh" }}>
             <div className="first-column">
-                <div className="upper-wrapper"></div>
+                <div className="upper-wrapper" style={{ backgroundColor:`${COLOR_2}` }}></div>
                 
-                <div className="lower-wrapper">
-                    <div className="contatti">
+                <div className="lower-wrapper" style={{ backgroundColor:`${COLOR_7}` }}>
+                    <div className="contatti" style={{ color:`${COLOR_5}`, width:'100%' }}>
                         {data.anagrafica.contatti.map((item, index) => (
                             <div key={index} className="contatti-single-item">
-                                <FontAwesomeIcon icon={item.font} style={{width: "20px"}}/>
-                                <p>{item.valore}</p>
+                                <FontAwesomeIcon icon={item.font} style={{ fontSize:'1.5em', width: '50px' }}/>
+                                <p style={{ fontSize:'1.5em', marginBottom:'0.5em' }}>{item.valore}</p>
                             </div>
                         ))}
                     </div>
 
-                    <div className="divisore"></div>
+                    <div className="divisore" style={{ backgroundColor:`${COLOR_5}` }}></div>
 
-                    <div className="competenze-container">
-                        <h3 style={{ color: "white" }}>COMPETENZE</h3>
-                        <ul>
+                    <div className="competenze-container" style={{ color:`${COLOR_5}` }}>
+                        <h3 style={{ color: `${COLOR_5}`, fontSize:`${TITLE_FONT}` }}>COMPETENZE</h3>
+                        <div>
                             {data.competenze.map((item, index) => (
-                                <li key={index} style={{marginBottom:"7px"}}>• {item}</li>
+                                <p key={index} style={{ fontSize:`${TEXT_FONT}`, marginBottom:"7px" }}>• {item.nome}</p>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div className="photo-wrapper" style={{backgroundImage:`url(${photo})`}}></div>
+                <div className="photo-wrapper" style={{ backgroundImage:`url(${photo})`, border:`3px solid ${COLOR_7}` }}></div>
             </div>
 
             <div className="second-column">
-                <div className="name-wrapper">
+                <div className="name-wrapper" style={{ color:`${COLOR_3}` }}>
                     <h2>{data.anagrafica.nome} {data.anagrafica.cognome}</h2>
                 </div>
 
-                <div className="divisore-principale"></div>
+                <div className="divisore-principale" style={{ backgroundColor:`${COLOR_2}` }}></div>
 
                 <div className="container">
-                    <h3>ESPERIENZE PROFESSIONALI</h3>
+                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>ESPERIENZE PROFESSIONALI</h3>
                     {data.lavoro.map((item, index) => (
-                        <div key={index} style={{marginBottom: "25px"}}>
+                        <div key={index} style={{ marginBottom: "1.2em" }}>
                             {item.stagione ? (
-                                <p style={{fontSize:`15px`}}>{capitalizeFirstLetter(item.stagione)} da {item.dataInizio} a {item.dataFine}</p>
+                                <p style={{ fontSize:`${SMALL_FONT}` }}>{item.stagione} da {item.data_inizio} a {item.data_fine}</p>
                             ) : (
-                                <p style={{fontSize:`15px`}}>{capitalizeFirstLetter(item.dataInizio)} - {item.dataFine ? capitalizeFirstLetter(item.dataFine) : "Attuale"}</p>
+                                <p style={{ fontSize:`${SMALL_FONT}` }}>{item.data_inizio} - {item.data_fine ? item.data_fine : "Attuale"}</p>
                             )}
-                            <h5 style={{fontSize:"16px"}}>{item.manzione}</h5>
-                            <p>{item.azienda} | {item.luogo}</p>
+                            <h5 style={{ fontSize:`${TEXT_FONT}` }}>{item.manzione}</h5>
+                            <p style={{ fontSize:`${SMALL_FONT}` }}>{item.azienda} | {item.sede}</p>
                             <div className="little-wrapper">
-                                <p style={{color:"rgb(58, 159, 221)"}}>Settore:</p>
-                                <p>{item.settore}</p>
+                                <p style={{ color:"rgb(58, 159, 221)", fontSize:`${SMALL_FONT}`}}>Settore:</p>
+                                <p style={{ fontSize:`${SMALL_FONT}` }}>{item.settore}</p>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="divisore-principale"></div>
+                <div className="divisore-principale" style={{ backgroundColor:`${COLOR_2}` }}></div>
 
                 <div className="container">
-                    <h3>ISTRUZIONE E FORMAZIONE</h3>
+                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>ISTRUZIONE E FORMAZIONE</h3>
                     {data.istruzione.map((item, index) => (
-                        <div key={index} style={{marginBottom: "15px"}}>
-                            <p style={{fontSize:"15px"}}>{capitalizeFirstLetter(item.dataInizio)} - {item.dataFine ? capitalizeFirstLetter(item.dataFine) : "Attuale"}</p>
-                            <h5 style={{fontSize:"16px"}}>{item.corso}</h5>
-                            <p>{item.universita}</p>
-                            {item.tesi ? (
+                        <div key={index} style={{marginBottom: "1.2em"}}>
+                            <p style={{ fontSize:`${SMALL_FONT}` }}>{item.data_inizio} - {item.data_fine ? item.data_fine : "Attuale"}</p>
+                            <h5 style={{ fontSize:`${TEXT_FONT}` }}>{item.corso}</h5>
+                            <p style={{ fontSize:`${SMALL_FONT}` }}>{item.sede}</p>
+                            {item.tesi && (
                                 <div className="little-wrapper">
-                                    <p style={{color:"rgb(58, 159, 221)"}}>Tesi:</p>
-                                    <p>{item.tesi}</p>
+                                    <p style={{ color:"rgb(58, 159, 221)", fontSize:`${SMALL_FONT}` }}>Tesi:</p>
+                                    <p style={{ fontSize:`${SMALL_FONT}` }}>{item.tesi}</p>
                                 </div>
-                            ) : ""
-                            }
+                            )}
                         </div>
                     ))}
                 </div>
 
-                <div className="divisore-principale"></div>
+                <div className="divisore-principale" style={{ backgroundColor:`${COLOR_2}` }}></div>
 
                 <div className="container">
-                    <h3>COMPETENZE LINGUISTICHE</h3>
-                    <p style={{marginBottom:"10px"}}><b>Italiano:</b> LINGUA MADRE</p>
+                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>COMPETENZE LINGUISTICHE</h3>
+                    <p style={{ fontSize:`${SMALL_FONT}`, marginBottom:'0.5em' }}><b>Italiano:</b> LINGUA MADRE</p>
                     <div className="lingue-list">
                         {data.lingue.map((item, index) => (
-                            <div key={index} style={{margin: "0 15px 10px 0"}}>
+                            <div key={index} style={{ margin: "0 0.5em 0.7em 0" }}>
                                 <div className="lingua-wrapper">
-                                    <p><b>{item.lingua}:</b></p>
-                                    <p>{item.nomeLivello}</p>
+                                    <p style={{ fontSize:`${SMALL_FONT}` }}><b>{item.lingua}:</b></p>
+                                    <p style={{ fontSize:`${SMALL_FONT}` }}>{item.nomeLivello}</p>
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "row" }}>
                                     {/* Stelle */}
@@ -144,13 +165,13 @@ const PDFGenerator = ( {data, photo} ) => {
 
                                     {/* Barre */}
                                     {[...Array(item.livello)].map((el,index) => (
-                                        <div key={index} style={{ backgroundColor:"rgb(58, 159, 221)", height: "15px", width: "20%", marginRight: "5px", marginBottom: "10px" }}></div>
+                                        <div key={index} style={{ backgroundColor:"rgb(58, 159, 221)", height: "15px", width: "20%", margin: "0 5px 10px 0" }}></div>
                                     ))}
                                     {[...Array(6 - item.livello)].map((el,index) => (
-                                        <div key={index} style={{ backgroundColor:"lightGrey", height: "15px", width: "20%", marginRight: "5px", marginBottom: "10px" }}></div>
+                                        <div key={index} style={{ backgroundColor:"lightGrey", height: "15px", width: "20%", margin: "0 5px 10px 0" }}></div>
                                     ))}
                                 </div>
-                                <p style={{marginBottom: "25px"}}>{item.dettaglioLivello}</p>
+                                <p style={{ fontSize:`${SMALL_FONT}`, marginBottom: '1em' }}>{item.dettaglioLivello}</p>
                             </div>
                         ))}
                     </div>
@@ -161,12 +182,12 @@ const PDFGenerator = ( {data, photo} ) => {
         </div>
 
 
-        <div>
-            <button onClick={generatePDF} style={{ marginTop: "20px", padding: "10px 20px", backgroundColor: "#74b9ff", color: "white", border: "none", borderRadius: "5px" }}>
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'center', width:'100%', marginBottom:'1em' }}>
+            <button onClick={generatePDF} style={{ padding: '1em', backgroundColor: `${COLOR_2}`, color: `${COLOR_5}`, border: "none", borderRadius: "5px", cursor:"pointer", marginRight:'0.5em' }}>
                 Scarica PDF
             </button>
-            <button onClick={goHome} style={{ marginTop: "20px", padding: "10px 20px", backgroundColor: "#72BF78", color: "white", border: "none", borderRadius: "5px" }}>
-                Home
+            <button onClick={goHome} style={{ padding: '1em', backgroundColor: `${COLOR_7}`, color: `${COLOR_5}`, border: "none", borderRadius: "5px", cursor:"pointer", marginLeft:'0.5em' }}>
+                Torna alla Home
             </button>
         </div>
     </div>

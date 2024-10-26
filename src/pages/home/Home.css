@@ -77,6 +77,8 @@
 
 .education-back-card{
     transform: rotateY(180deg);
+    justify-content: center;
+    align-items: start;
 }
 
 .education-item:hover .education-card{

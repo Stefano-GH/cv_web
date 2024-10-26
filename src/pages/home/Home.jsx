@@ -6,6 +6,8 @@ import "./Home.css";
 import { useState } from "react";
 import emailjs from "emailjs-com";
 //import Modal from 'react-modal';
+import Navbar from "../../components/navbar/Navbar";
+import Footer from "../../components/footer/Footer";
 
 const COLOR_2 = `#${process.env.REACT_APP_COLOR_2}`;
 const COLOR_3 = `#${process.env.REACT_APP_COLOR_3}`;
@@ -100,6 +102,8 @@ const Home = ( {data} ) => {
 
 
   return <div className="home-container">
+
+    <Navbar data={data} />
 
     {/* Hero Section */}
     <section className="hero" style={{backgroundColor: `${COLOR_6}`}}>
@@ -283,6 +287,8 @@ const Home = ( {data} ) => {
         <button type="submit" className="btn" style={{backgroundColor: `${COLOR_2}`, color: `white`}}>Invia</button>
       </form>
     </section>
+
+    <Footer data={data} />
 
   </div>
 }
