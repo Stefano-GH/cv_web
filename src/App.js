@@ -15,6 +15,7 @@ import photo from "./data/icona.webp";
   ----------------------------------------
 */
 function App() {
+  
   return <BrowserRouter>
   
       <Routes>
