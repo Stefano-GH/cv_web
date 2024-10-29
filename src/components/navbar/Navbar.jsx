@@ -9,25 +9,26 @@ const COLOR_1 = `#${process.env.REACT_APP_COLOR_1}`;
 const COLOR_3 = `#${process.env.REACT_APP_COLOR_3}`;
 const COLOR_5 = `#${process.env.REACT_APP_COLOR_5}`;
 
-// Link della navbar
-const links = [
-  { titolo: "Chi Sono", href: '#about' },
-  { titolo: "Istruzione", href: '#education' },
-  { titolo: "Esperienza", href: '#experience' },
-  { titolo: "Competenze", href: '#skills' },
-  { titolo: "Contatti", href: '#contact' },
-]
-
 
 /*----------------------------------------
   STRUCTURE
   ----------------------------------------
 */
-const Navbar = ( {data} ) => {
+const Navbar = ( {data, useEnglish} ) => {
+  
 
   //////////////////////////////
   // Gestione dei link
   //////////////////////////////
+  // Link della navbar
+  const links = [
+    { titolo: useEnglish ? " Who I am" : "Chi Sono", href: '#about' },
+    { titolo: useEnglish ? "Education" : "Istruzione", href: '#education' },
+    { titolo: useEnglish ? "Experience" : "Esperienza", href: '#experience' },
+    { titolo: useEnglish ? "Skills" : "Competenze", href: '#skills' },
+    { titolo: useEnglish ? "Contacts" : "Contatti", href: '#contact' },
+  ]
+
   // generazione hover dinamici
   const [hoveredLinks, setHoveredLinks] = useState(new Array(links.length).fill(false));
 

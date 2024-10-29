@@ -25,7 +25,7 @@ const gridStyle = {
   STRUCTURE
   ----------------------------------------
 */
-const Home = ( {data} ) => {
+const Home = ( {data, useEnglish, setUseEnglish} ) => {
 
   //////////////////////////////
   // Competenze
@@ -85,11 +85,11 @@ const Home = ( {data} ) => {
     ).then(
       (response) => {
         console.log("SUCCESS!", response.status, response.text);
-        alert("Messaggio iniviato con successo!");
+        alert(data.testi.home_handleSubmit_success);
       },
       (error) => {
         console.log("FAILED...", error);
-        console.log("Si è verificato un errore nell'invio del messaggio.")
+        console.log(data.testi.home_handleSubmit_failure)
       }
     );
 
@@ -103,26 +103,37 @@ const Home = ( {data} ) => {
 
   return <div className="home-container">
 
-    <Navbar data={data} />
+    <Navbar data={data} useEnglish={useEnglish} />
+
+    {/* Toggle Switch */}
+    <div className="eng-container" style={{ backgroundColor:`${COLOR_6}` }}>
+        <div className="toggle-switch">
+          <label className="switch">
+            <input type="checkbox" checked={useEnglish} onChange={() => setUseEnglish(!useEnglish)} />
+            <span className="slider round"></span>
+          </label>
+          <span>{useEnglish ? "EN" : "IT"}</span>
+        </div>
+      </div>
 
     {/* Hero Section */}
     <section className="hero" style={{backgroundColor: `${COLOR_6}`}}>
       <div className="hero-content">
-        <h2 style={{color: `${COLOR_3}`}}>Benvenuti nel mio sito!</h2>
+        <h2 style={{color: `${COLOR_3}`}}>{data.testi.home_hero_benvenuti}</h2>
         <p></p>
-        <a href="#contact" className="btn" style={{backgroundColor:`${COLOR_3}`, color:`${COLOR_5}`}}>Contattami</a>
+        <a href="#contact" className="btn" style={{backgroundColor:`${COLOR_3}`, color:`${COLOR_5}`}}>{data.testi.home_hero_bottone}</a>
       </div>
     </section>
 
     {/* About Section */}
     <section id="about" className="about" style={{padding: "1em"}}>
-      <h2>Chi Sono</h2>
+      <h2>{data.testi.home_about_titolo}</h2>
       <p>{data.anagrafica.chi_sono}</p>
     </section>
 
     {/* Education Section */}
     <section id="education" className="education" style={{padding: "1em"}}>
-      <h2 style={{marginBottom: "10px"}}>Istruzione</h2>
+      <h2 style={{marginBottom: "10px"}}>{data.testi.home_education_titolo}</h2>
       <div className="education-grid">
 
         {data.istruzione.map((item, index) => (
@@ -141,9 +152,9 @@ const Home = ( {data} ) => {
 
               {/*Retro della carta*/}
               <div className="education-back-card" style={{backgroundColor:`${COLOR_2}`}}>
-                <p style={{marginBottom:"1em"}}><b>Sede:</b> {item.sede}</p>
-                <p style={{marginBottom:"1em"}}><b>Periodo:</b> {item.data_inizio} - {item.data_fine ? item.data_fine : "In corso"}</p>
-                {item.tesi && <p><b>Tesi:</b> {item.tesi}</p>}
+                <p style={{marginBottom:"1em"}}><b>{data.testi.home_education_sede}:</b> {item.sede}</p>
+                <p style={{marginBottom:"1em"}}><b>{data.testi.home_education_periodo}:</b> {item.data_inizio} - {item.data_fine ? item.data_fine : data.testi.home_education_noDataFine}</p>
+                {item.tesi && <p><b>{data.testi.home_education_tesi}:</b> {item.tesi}</p>}
               </div>
               
             </div>
@@ -154,7 +165,7 @@ const Home = ( {data} ) => {
 
     {/* Experience Section */}
     <section id="experience" className="experience" style={{padding: "1em 1em 2.5em 1em"}}>
-      <h2 style={{marginBottom: "10px"}}>Esperienza</h2>
+      <h2 style={{marginBottom: "10px"}}>{data.testi.home_experience_titolo}</h2>
       <div className="job-grid">
 
         {data.lavoro.map((item, index) => (
@@ -173,12 +184,12 @@ const Home = ( {data} ) => {
 
               {/*Retro della carta*/}
               <div className="education-back-card">
-                <p style={{marginBottom:"1em"}}><b>Settore:</b> {item.settore}</p>
-                <p style={{marginBottom:"1em"}}><b>Sede:</b> {item.azienda} | {item.sede}</p>
+                <p style={{marginBottom:"1em"}}><b>{data.testi.home_experience_settore}:</b> {item.settore}</p>
+                <p style={{marginBottom:"1em"}}><b>{data.testi.home_education_sede}:</b> {item.azienda} | {item.sede}</p>
                 {item.stagione ? (
-                    <p><b>Periodo:</b> {item.stagione} | {item.data_inizio} - {item.data_fine ? item.data_fine : "In corso"}</p>
+                    <p><b>{data.testi.home_education_periodo}:</b> {item.stagione} | {item.data_inizio} - {item.data_fine ? item.data_fine : data.testi.home_education_noDataFine}</p>
                   ) : (
-                    <p><b>Periodo:</b> {item.data_inizio} - {item.data_fine ? item.data_fine : "In corso"}</p>
+                    <p><b>{data.testi.home_education_periodo}:</b> {item.data_inizio} - {item.data_fine ? item.data_fine : data.testi.home_education_noDataFine}</p>
                   )}
               </div>
 
@@ -190,7 +201,7 @@ const Home = ( {data} ) => {
 
     {/* Skills Section */}
     <section id="skills" className="competenze" style={{ padding: "1em 1em 2.5em 1em", backgroundColor:`${COLOR_3}`, color:`${COLOR_5}` }}>
-      <h2 style={{marginBottom:'1em'}}>Competenze</h2>
+      <h2 style={{marginBottom:'1em'}}>{data.testi.home_skills_titolo}</h2>
       <div className="competenze-grid">
         {data.competenze.map((item,index) => (
           <div key={index} className="competenze-item" onClick={() => handleExpand(index)} style={{backgroundColor:`${COLOR_5}`, color:`${COLOR_3}`}}>
@@ -198,17 +209,17 @@ const Home = ( {data} ) => {
 
             {expandedIndex[index] && item.tipo_competenza === "tecnica" && (
               <div className="competenze-dettagli">
-                <p style={{marginBottom:'0.5em'}}><b>Linguaggi:</b> {item.competenze.join(', ')}</p>
-                {item.dettagli?.length>0 && <p><b>Strumenti:</b> {item.dettagli.join(', ')}</p>}
+                <p style={{marginBottom:'0.5em'}}><b>{data.testi.home_skills_linguaggi}:</b> {item.competenze.join(', ')}</p>
+                {item.dettagli?.length>0 && <p><b>{data.testi.home_skills_strumenti}:</b> {item.dettagli.join(', ')}</p>}
               </div>
             )}
 
             {expandedIndex[index] && item.tipo_competenza === "linguistica" && (
               <div className="competenze-dettagli">
-                <p style={{marginBottom:'0.5em'}}><b>Lingua Madre:</b> {item.competenze[0]}</p>
+                <p style={{marginBottom:'0.5em'}}><b>{data.testi.home_skills_linguaMadre}:</b> {item.competenze[0]}</p>
                 {item.competenze?.length > 1 && (
                   <div style={{ display:'flex', gap:'0.5em' }}>
-                    <p style={{ marginBottom:'0.5em' }}><b>Altre Lingue:</b></p>
+                    <p style={{ marginBottom:'0.5em' }}><b>{data.testi.home_skills_altreLingue}:</b></p>
                     {item.competenze.slice(1).map((lingua, indice) => (
                       <p key={indice} style={{ marginBottom:'0.5em' }}>
                         {lingua} ({item.dettagli[indice]})
@@ -276,19 +287,19 @@ const Home = ( {data} ) => {
 
     {/* Contact Section */}
     <section id="contact" className="contact" style={{padding: "1em", backgroundColor:`${COLOR_6}`}}>
-      <h2 style={{marginBottom:"0.5em"}}>Contatti</h2>
+      <h2 style={{marginBottom:"0.5em"}}>{data.testi.home_contact_titolo}</h2>
       <form onSubmit={handleSubmit}>
-        <label>Nome</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Il tuo nome" required/>
-        <label>Email</label>
-        <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="La tua email" required/>
-        <label>Messaggio</label>
-        <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Scrivi il tuo messaggio qui" required></textarea>
-        <button type="submit" className="btn" style={{backgroundColor: `${COLOR_2}`, color: `white`}}>Invia</button>
+        <label>{data.testi.home_contact_nome}</label>
+        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder={data.testi.home_contact_nomePlaceholder} required/>
+        <label>{data.testi.home_contact_email}</label>
+        <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder={data.testi.home_contact_emailPlaceholder} required/>
+        <label>{data.testi.home_contact_messaggio}</label>
+        <textarea name="message" value={formData.message} onChange={handleChange} placeholder={data.testi.home_contact_messaggioPlaceholder} required></textarea>
+        <button type="submit" className="btn" style={{backgroundColor: `${COLOR_2}`, color: `white`}}>{data.testi.home_contact_bottone}</button>
       </form>
     </section>
 
-    <Footer data={data} />
+    <Footer data={data} useEnglish={useEnglish} />
 
   </div>
 }

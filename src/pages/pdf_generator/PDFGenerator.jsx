@@ -84,10 +84,11 @@ const PDFGenerator = ( {data, photo} ) => {
 
                     <div className="divisore" style={{ backgroundColor:`${COLOR_5}` }}></div>
 
+                    {/* Skills Section */}
                     <div className="competenze-container" style={{ color:`${COLOR_5}` }}>
-                        <h3 style={{ color: `${COLOR_5}`, fontSize:`${TITLE_FONT}` }}>COMPETENZE</h3>
+                        <h3 style={{ color: `${COLOR_5}`, fontSize:`${TITLE_FONT}` }}>{data.testi.pdfGenerator_skills_titolo}</h3>
                         <div>
-                            {data.competenze.map((item, index) => (
+                            {data.competenze.slice(0, -1).map((item, index) => (
                                 <p key={index} style={{ fontSize:`${TEXT_FONT}`, marginBottom:"7px" }}>• {item.nome}</p>
                             ))}
                         </div>
@@ -104,19 +105,20 @@ const PDFGenerator = ( {data, photo} ) => {
 
                 <div className="divisore-principale" style={{ backgroundColor:`${COLOR_2}` }}></div>
 
+                {/* Experience Section */}
                 <div className="container">
-                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>ESPERIENZE PROFESSIONALI</h3>
+                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>{data.testi.pdfGenerator_experience_titolo}</h3>
                     {data.lavoro.map((item, index) => (
                         <div key={index} style={{ marginBottom: "1.2em" }}>
                             {item.stagione ? (
                                 <p style={{ fontSize:`${SMALL_FONT}` }}>{item.stagione} da {item.data_inizio} a {item.data_fine}</p>
                             ) : (
-                                <p style={{ fontSize:`${SMALL_FONT}` }}>{item.data_inizio} - {item.data_fine ? item.data_fine : "Attuale"}</p>
+                                <p style={{ fontSize:`${SMALL_FONT}` }}>{item.data_inizio} - {item.data_fine ? item.data_fine : data.testi.pdfGenerator_experience_noDataFine}</p>
                             )}
                             <h5 style={{ fontSize:`${TEXT_FONT}` }}>{item.manzione}</h5>
                             <p style={{ fontSize:`${SMALL_FONT}` }}>{item.azienda} | {item.sede}</p>
                             <div className="little-wrapper">
-                                <p style={{ color:"rgb(58, 159, 221)", fontSize:`${SMALL_FONT}`}}>Settore:</p>
+                                <p style={{ color:"rgb(58, 159, 221)", fontSize:`${SMALL_FONT}`}}>{data.testi.home_experience_settore}:</p>
                                 <p style={{ fontSize:`${SMALL_FONT}` }}>{item.settore}</p>
                             </div>
                         </div>
@@ -125,16 +127,17 @@ const PDFGenerator = ( {data, photo} ) => {
 
                 <div className="divisore-principale" style={{ backgroundColor:`${COLOR_2}` }}></div>
 
+                {/* Education Section */}
                 <div className="container">
-                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>ISTRUZIONE E FORMAZIONE</h3>
+                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>{data.testi.pdfGenerator_education_titolo}</h3>
                     {data.istruzione.map((item, index) => (
                         <div key={index} style={{marginBottom: "1.2em"}}>
-                            <p style={{ fontSize:`${SMALL_FONT}` }}>{item.data_inizio} - {item.data_fine ? item.data_fine : "Attuale"}</p>
+                            <p style={{ fontSize:`${SMALL_FONT}` }}>{item.data_inizio} - {item.data_fine ? item.data_fine : data.testi.pdfGenerator_experience_noDataFine}</p>
                             <h5 style={{ fontSize:`${TEXT_FONT}` }}>{item.corso}</h5>
                             <p style={{ fontSize:`${SMALL_FONT}` }}>{item.sede}</p>
                             {item.tesi && (
                                 <div className="little-wrapper">
-                                    <p style={{ color:"rgb(58, 159, 221)", fontSize:`${SMALL_FONT}` }}>Tesi:</p>
+                                    <p style={{ color:"rgb(58, 159, 221)", fontSize:`${SMALL_FONT}` }}>{data.testi.home_education_tesi}:</p>
                                     <p style={{ fontSize:`${SMALL_FONT}` }}>{item.tesi}</p>
                                 </div>
                             )}
@@ -144,34 +147,31 @@ const PDFGenerator = ( {data, photo} ) => {
 
                 <div className="divisore-principale" style={{ backgroundColor:`${COLOR_2}` }}></div>
 
+                {/* Linguistic Skills Section */}
                 <div className="container">
-                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>COMPETENZE LINGUISTICHE</h3>
-                    <p style={{ fontSize:`${SMALL_FONT}`, marginBottom:'0.5em' }}><b>Italiano:</b> LINGUA MADRE</p>
+                    <h3 style={{ color:`${COLOR_2}`, fontSize:`${TITLE_FONT}`, marginBottom:'1em' }}>{data.testi.pdfGenerator_lingue_titolo}</h3>
+                    <p style={{ fontSize:`${SMALL_FONT}`, marginBottom:'0.5em' }}><b>{data.competenze[data.competenze.length - 1].competenze[0]}:</b> {data.testi.pdfGenerator_lingue_madreLingua}</p>
                     <div className="lingue-list">
-                        {data.lingue.map((item, index) => (
-                            <div key={index} style={{ margin: "0 0.5em 0.7em 0" }}>
+                        {data.competenze[data.competenze.length - 1].competenze.slice(1).map((lingua, index) => (
+                            <div key={index} style={{ margin: "0 1.5em 1em 0" }}>
                                 <div className="lingua-wrapper">
-                                    <p style={{ fontSize:`${SMALL_FONT}` }}><b>{item.lingua}:</b></p>
-                                    <p style={{ fontSize:`${SMALL_FONT}` }}>{item.nomeLivello}</p>
+                                    <p style={{ fontSize:`${SMALL_FONT}` }}><b>{lingua}:</b></p>
+                                    <p style={{ fontSize:`${SMALL_FONT}` }}>
+                                        {data.competenze[data.competenze.length - 1].dettagli[index]}
+                                    </p>
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "row" }}>
-                                    {/* Stelle */}
-                                    {/*[...Array(item.livello)].map((el, index) => (
-                                        <span key={index} style={{ color: "gold", marginRight: "5px" }}>★</span>
-                                    ))}
-                                    {[...Array(6 - item.livello)].map((el,index) => (
-                                        <span key={index} style={{ color: "lightGrey", marginRight: "5px" }}>★</span>
-                                    ))*/}
-
                                     {/* Barre */}
-                                    {[...Array(item.livello)].map((el,index) => (
-                                        <div key={index} style={{ backgroundColor:"rgb(58, 159, 221)", height: "15px", width: "20%", margin: "0 5px 10px 0" }}></div>
+                                    {[...Array(data.competenze[data.competenze.length - 1].livello[index])].map((el,indice) => (
+                                        <div key={indice} style={{ backgroundColor:"rgb(58, 159, 221)", height: "15px", width: "20%", margin: "0 5px 10px 0" }}></div>
                                     ))}
-                                    {[...Array(6 - item.livello)].map((el,index) => (
-                                        <div key={index} style={{ backgroundColor:"lightGrey", height: "15px", width: "20%", margin: "0 5px 10px 0" }}></div>
+                                    {[...Array(6 - data.competenze[data.competenze.length - 1].livello[index])].map((el,indice) => (
+                                        <div key={indice} style={{ backgroundColor:"lightGrey", height: "15px", width: "20%", margin: "0 5px 10px 0" }}></div>
                                     ))}
                                 </div>
-                                <p style={{ fontSize:`${SMALL_FONT}`, marginBottom: '1em' }}>{item.dettaglioLivello}</p>
+                                <p style={{ fontSize:`${SMALL_FONT}`, marginBottom: '1em' }}>
+                                    {data.competenze[data.competenze.length - 1].nomeLivello[index]}
+                                </p>
                             </div>
                         ))}
                     </div>

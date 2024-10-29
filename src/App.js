@@ -5,8 +5,9 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import PDFGenerator from "./pages/pdf_generator/PDFGenerator";
+import { useState } from "react";
 
-import data from "./data/stefano/data";
+import { dataIta, dataEng } from "./data/stefano/data";
 import photo from "./data/icona.webp";
 
 
@@ -15,10 +16,17 @@ import photo from "./data/icona.webp";
   ----------------------------------------
 */
 function App() {
+
+  //////////////////////////////
+  // Switch per lingua
+  //////////////////////////////
+  const [useEnglish, setUseEnglish] = useState(false);
+  const data = useEnglish ? dataEng : dataIta;
+
   return <BrowserRouter>
   
       <Routes>
-        <Route path="/cv_web" element={<Home data={data} />}/>
+        <Route path="/cv_web" element={<Home data={data} useEnglish={useEnglish} setUseEnglish={setUseEnglish} />} />
         <Route path="/cv_web/download_pdf" element={<PDFGenerator data={data} photo={photo} />}/>
       </Routes>
 

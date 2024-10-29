@@ -15,25 +15,16 @@ const COLOR_6 = `#${process.env.REACT_APP_COLOR_6}`;
   STRUCTURE
   ----------------------------------------
 */
-const Footer = ( {data} ) => {
+const Footer = ( {data, useEnglish} ) => {
 
   const currentYear = new Date().getFullYear();
 
-  // gestione link scarica pdf
-  const [pdfHovered, setPdfHovered] = useState(false);
-
     return <footer className="footer" style={{backgroundColor:`${COLOR_3}`, color:`${COLOR_6}`}}>
       
-      <NavLink to={"/cv_web/download_pdf"} onMouseEnter={() => setPdfHovered(true)} on onMouseLeave={() => setPdfHovered(false)}
-        style={{
-          color: pdfHovered ? `${COLOR_1}` : `${COLOR_6}`,
-          cursor:'pointer',
-          textDecoration: pdfHovered ? 'underline' : ''
-        }}
-      >
-        Scarica PDF
+      <NavLink to={"/cv_web/download_pdf"} style={{ color:`${COLOR_3}` }}>
+        {data.testi.home_footer_scaricaPdf}
       </NavLink>
-      <p style={{ marginTop:'1em' }}>© {currentYear} {data.anagrafica.nome} {data.anagrafica.cognome}. Tutti i diritti riservati.</p>
+      <p style={{ marginTop:'1em' }}>© {currentYear} {data.anagrafica.nome} {data.anagrafica.cognome}. {data.testi.home_footer_dirittiRiservati}</p>
     </footer>
 };
 
