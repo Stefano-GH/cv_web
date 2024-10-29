@@ -152,10 +152,10 @@ export const dataIta = {
         {
             nome:"Competenze linguistiche",
             tipo_competenza:"linguistica",
-            competenze:["Italiano", "Inglese", "Spagnolo", "Francese"],
-            dettagli:["B2", "B1", "A1"],
-            nomeLivello: ["Intermedio avanzato", "Intermedio scarso", "Base"],
-            livello: [4, 3, 1]
+            competenze:["Italiano", "Inglese"],
+            dettagli:["B2"],
+            nomeLivello: ["Intermedio avanzato"],
+            livello: [4]
         }
     ],
 
@@ -354,10 +354,10 @@ export const dataEng = {
         {
             nome:"Linguistic Skills",
             tipo_competenza:"linguistica",
-            competenze:["Italian", "English", "Spanish"],
-            dettagli:["B2", "B1"],
-            nomeLivello: ["Intermediate advanced", "Intermediate"],
-            livello: [4, 3]
+            competenze:["Italian", "English"],
+            dettagli:["B2"],
+            nomeLivello: ["Intermediate advanced"],
+            livello: [4]
         }
     ],
 
