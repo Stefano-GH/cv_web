@@ -65,7 +65,7 @@ const Navbar = ( {data, useEnglish} ) => {
     <div className={showBurgerMenu ? "burgerMenu-items show" : "burgerMenu-items"} style={{backgroundColor:`${COLOR_3}`}}>
       {links.map((item, index) => (
         <div key={index}>
-          <a href={item.href} style={getLinkStyle(hoveredLinks[index])}
+          <a href={item.href} style={getLinkStyle(hoveredLinks[index])} onClick={() => setShowBurgerMenu(false)}
           onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={() => handleMouseLeave(index)}>
             {item.titolo}
           </a>

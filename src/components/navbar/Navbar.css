@@ -51,6 +51,7 @@
         margin: 0;
         gap: 0;
         width: 100%;
+        z-index: 2;
     }
 
     .burgerMenu-items.show div{

@@ -14,11 +14,7 @@ export const dataIta = {
         nome: "Stefano",
         cognome: "Tumino",
         titoli: "Analista & Tester | Studente di AI | Laureato in Astrofisica",
-        chi_sono: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non purus sed quam vehicula sodales." +
-            "Pellentesque porta congue arcu pellentesque elementum. Duis elementum id ipsum id maximus. In hac habitasse platea dictumst." +
-            "In ac ullamcorper quam. Phasellus posuere aliquam elit non scelerisque. Nullam varius dictum odio," +
-            "eu efficitur turpis bibendum condimentum. Aliquam luctus, lectus in tempus convallis, nunc sapien tincidunt diam, " +
-            "in finibus metus ipsum ac nulla. Vestibulum et interdum nulla. Sed lacinia laoreet dolor, non maximus lacus facilisis vitae. Aliquam erat volutpat.",
+        chi_sono: "Sono un astrofisico con una solida base analitica e un forte interesse per l’intelligenza artificiale. Attualmente lavoro come analista e tester presso un'azienda informatica che sviluppa software per il settore bancario. Esperto in diversi linguaggi di programmazione e gestione di sistemi digitali, unisco rigore scientifico e capacità di problem solving, qualità che mi hanno permesso di conseguire la laurea triennale in fisica in soli due anni anziché tre. Organizzazione e puntualità sono i miei valori guida e sono sempre aperto a nuove sfide tecnologiche per ampliare le mie competenze.",
         contatti: [
             {tipo: "telefono", valore: "338 548 3925", font: faPhone},
             {tipo: "email", valore: "s.tumino99@gmail.com", font: faEnvelope},
@@ -216,11 +212,7 @@ export const dataEng = {
         nome: "Stefano",
         cognome: "Tumino",
         titoli: "Analyst & Tester | AI Student | Astrophysics Graduated",
-        chi_sono: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non purus sed quam vehicula sodales." +
-            "Pellentesque porta congue arcu pellentesque elementum. Duis elementum id ipsum id maximus. In hac habitasse platea dictumst." +
-            "In ac ullamcorper quam. Phasellus posuere aliquam elit non scelerisque. Nullam varius dictum odio," +
-            "eu efficitur turpis bibendum condimentum. Aliquam luctus, lectus in tempus convallis, nunc sapien tincidunt diam, " +
-            "in finibus metus ipsum ac nulla. Vestibulum et interdum nulla. Sed lacinia laoreet dolor, non maximus lacus facilisis vitae. Aliquam erat volutpat.",
+        chi_sono: "I am an astrophysicist with a solid analytical background and a strong interest in artificial intelligence. I currently work as an analyst and tester at an IT company that develops software for the banking sector. Expert in several programming languages ​​and digital system management, I combine scientific rigor and problem solving skills, qualities that allowed me to obtain a bachelor's degree in physics in just two years instead of three. Organization and punctuality are my guiding values ​​and I am always open to new technological challenges to expand my skills.",
         contatti: [
             {tipo: "Telephone", valore: "338 548 3925", font: faPhone},
             {tipo: "email", valore: "s.tumino99@gmail.com", font: faEnvelope},
